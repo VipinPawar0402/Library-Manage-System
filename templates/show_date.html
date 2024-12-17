@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date Box</title>
+    <style>
+      .wrapper {
+        width: 50%;
+        margin: 25%;
+        margin-top: 50px;
+        padding: 14px;
+        border: 1px solid #ccc;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+      .datebox {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .todaydate {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding: 8px;
+        width: 80%;
+        font-size: 16px;
+      }
+      .calbtn {
+        margin-top: 20px;
+      }
+      .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header><a href="{% url "header" %}">header</a></header>
+    <div class="wrapper">
+      <h1 class="datebox">Date-Box</h1>
+      <div>
+        <h3>Present Date: <span id="currentDate"></span></h3>
+      </div>
+
+      <div>
+        <label for="date">Date of Birth:</label>
+        <input type="date" id="date" class="todaydate" />
+      </div>
+
+      <div class="calbtn">
+        <button type="button" class="btn" id="calculateBtn" onclick="caldate()">
+          Submit
+        </button>
+      </div>
+
+      <div
+        id="result"
+        style="margin-top: 20px; font-size: 18px; font-weight: bold"
+      ></div>
+    </div>
+
+    <script>
+      // Display the current date in the header
+      document.getElementById("currentDate").textContent =
+        new Date().toLocaleDateString();
+
+      function caldate() {
+        // Get current date and birth date from input
+        const currentDate = new Date();
+        const birthDate = new Date(document.getElementById("date").value);
+
+        // Validate if birth date is selected and not in the future
+        if (!document.getElementById("date").value) {
+          alert("Please select a valid birth date.");
+          return;
+        }
+        if (birthDate > currentDate) {
+          alert("Birth date cannot be in the future.");
+          return;
+        }
+
+        // Calculate years, months, and days difference
+        let years = currentDate.getFullYear() - birthDate.getFullYear();
+        let months = currentDate.getMonth() - birthDate.getMonth();
+        let days = currentDate.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+          months -= 1;
+          days += new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            0
+          ).getDate();
+        }
+        if (months < 0) {
+          years -= 1;
+          months += 12;
+        }
+
+        // Display the result
+        document.getElementById(
+          "result"
+        ).textContent = `Result: ${years} years, ${months} months, and ${days} days`;
+      }
+    </script>
+  </body>
+</html>

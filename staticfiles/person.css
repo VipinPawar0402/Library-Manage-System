@@ -1,0 +1,40 @@
+
+th {
+  background-color: rgb(184, 240, 240);
+}
+
+button.edit-btn {
+  margin-left: 7%;
+  border: none;
+  border-radius: 8%;
+  padding: 2%;
+  padding-left: 9%;
+  padding-right: 9%;
+}
+
+button.edit-btn:hover {
+  background-color: rgb(54, 230, 54);
+  border: none;
+}
+
+button.deletebtn {
+  margin-left: 12%;
+  border: none;
+  border-radius: 8%;
+  padding: 2%;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+button.deletebtn:hover {
+  background-color: rgb(255, 59, 59);
+  border: none;
+}
+
+th.id-column,
+td.id-column {
+  width: 50px;
+  /* Adjust this value to set the desired width */
+  text-align: center;
+  /* Center-align the ID content */
+}
