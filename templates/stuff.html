@@ -1,0 +1,289 @@
+{% extends "layouts/base.html" %} {% load static %} {% block content %}
+
+<body>
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0 font-size-18">Stuff</h4>
+
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">
+                    <a href="javascript: void(0);">{{stuff.id}}</a>
+                  </li>
+                  <li class="breadcrumb-item active">Stuff</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <div class="search-box me-2 mb-2 d-inline-block">
+                      <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search..." />
+                        <i class="bx bx-search-alt search-icon"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="text-sm-end">
+                      <button type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2" onclick="addStuff()">
+                        <i class="mdi mdi-plus me-1"></i> Add
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table align-middle table-nowrap table-check">
+                    <thead class="table-light">
+                      <tr>
+                        <th style="width: 20px" class="align-middle">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox" id="checkAll" />
+                            <label class="form-check-label" for="checkAll"></label>
+                          </div>
+                        </th>
+                        <th class="align-middle">Stuff ID</th>
+                        <th class="align-middle">Name</th>
+                        <th class="align-middle">Mobile</th>
+                        <th class="align-middle">Email</th>
+                        <th class="align-middle">CRN</th>
+                        <th class="align-middle">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for stuff in stuff %}
+                      <tr id="item-{{ stuff.id }}">
+                        <td>
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox" id="orderidcheck09" />
+                            <label class="form-check-label" for="orderidcheck09"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="javascript: void(0);" class="text-body fw-bold">{{stuff.id}}</a>
+                        </td>
+                        <td>{{ stuff.name }}</td>
+                        <td>{{ stuff.mobile }}</td>
+                        <td>{{ stuff.email }}</td>
+                        <td>{{ stuff.id }}</td>
+
+                        {% comment %} <td> 
+                          <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
+                            data-bs-target=".orderdetailsModal">
+                            View Details
+                          </button>
+                        </td> {% endcomment %}
+                        <td>
+                          <div class="d-flex gap-3">
+                            <a href="javascript:void(0);" class="text-success"><i
+                                class="mdi mdi-pencil font-size-18" onclick="editbtn('{{stuff.id}}')"></i></a>
+                            <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-delete font-size-18" onclick="deletebtn('{{ stuff.id }}')"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                {% comment %} <ul class="pagination pagination-rounded justify-content-end mb-2">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                      <i class="mdi mdi-chevron-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript: void(0);">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">5</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                      <i class="mdi mdi-chevron-right"></i>
+                    </a>
+                  </li>
+                </ul> {% endcomment %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+  {% comment %} <div class="modal fade" id="addStuff" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Staff</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="name" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Mobile:</label>
+            <input type="text" class="form-control" id="mobile" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="email" />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" onclick="add_Stuff_data()">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Box</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this stuff?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" onclick="delete_data()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    function editbtn(id) {
+      window.location.href = '/edit-staff/' + id + '/';
+    }
+
+    function update_data(id, name, mobile, email) {
+      var id = $('#userId').val();
+      var name = $('#editname').val();
+      var mobile = $('#editmobile').val();
+      var email = $('#editemail').val();
+      $.ajax({
+        url: '/update-stuff/',
+        type: 'POST',
+        data: {
+          id: id,
+          name: name,
+          mobile: mobile,
+          email: email
+        },
+        success: function (response) {
+          if(response.message == 'success'){
+            alert('Data Updated Successfully');
+            window.location.href = '/stuff/';
+           
+          }
+          else{
+            alert('Data Not Updated');
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    function addStuff() {
+      window.location.href = '/add-staff/';
+    }
+
+    function add_Stuff_data() {
+      var name = $('#name').val();
+      var mobile = $('#mobile').val();
+      var email = $('#email').val();
+      $.ajax({
+        url: '/add-stuff/',
+        type: 'POST',
+        data: {
+          name: name,
+          mobile: mobile,
+          email: email
+        },
+        success: function (response) {
+          if(response.message == 'success'){
+            alert('Data Added Successfully');
+            window.location.href = '/stuff/';
+          }
+          else{
+            alert('Data Not Added');
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    var deleteId = null;
+
+    function deletebtn(id) {
+        deleteId = id;
+        $('#deleteModal').modal('show');
+    }
+
+    function delete_data() {
+        $.ajax({
+            url: '/delete-stuff/',
+            type: 'POST',
+            data: {
+                id: deleteId
+            },
+            success: function (response) {
+                if (response.message == 'success') {
+                    window.location.href = '/stuff/';
+                } else {
+                    alert('Failed to delete data');
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+  </script>
+</body>
+{% endblock %}

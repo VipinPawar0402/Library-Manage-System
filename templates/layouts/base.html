@@ -12,30 +12,32 @@
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" />
 
     <!-- Bootstrap Css -->
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}"  />
     <!-- Icons Css -->
-    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/icons.min.css' %}" />
     <!-- App Css -->
-    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/app.min.css' %}" />
+    {% block style %}{% endblock style %}
 </head>
 
 <body data-sidebar="dark" data-layout-mode="light">
     {% include "layouts/header.html" %}
+    
     {% block content %}
     {% endblock content %}
-    {% include "layouts/sidebar.html" %}
+    
     {% include "layouts/footer.html" %}
+    {% include "layouts/sidebar.html" %}
 
     <!-- JAVASCRIPT -->
-    {% block javascript %}
+    {% block customJs %}{% endblock %}
     <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
-
     <script src="{% static 'assets/js/app.js' %}"></script>
-    {% endblock javascript %}
+    
 </body>
 
 </html>

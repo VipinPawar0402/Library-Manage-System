@@ -1,142 +1,189 @@
-  {% load static %}
-  <!-- ========== Left Sidebar Start ========== -->
-  <body>
-  <div class="vertical-menu">
+{% load static %}
+<!-- ========== Left Sidebar Start ========== -->
 
-    <div data-simplebar="init" class="h-100"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -16.8px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
+<body>
+    <div class="vertical-menu">
 
-        <!--- Sidemenu -->
-        <div id="sidebar-menu" class="mm-active">
-            <!-- Left Menu Start -->
-            <ul class="metismenu list-unstyled mm-show" id="side-menu">
-                <li class="menu-title" key="t-menu">Menu</li>
+        <div data-simplebar="init" class="h-100">
+            <div class="simplebar-wrapper" style="margin: 0px;">
+                <div class="simplebar-height-auto-observer-wrapper">
+                    <div class="simplebar-height-auto-observer"></div>
+                </div>
+                <div class="simplebar-mask">
+                    <div class="simplebar-offset" style="right: -16.8px; bottom: 0px;">
+                        <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;">
+                            <div class="simplebar-content" style="padding: 0px;">
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-home-circle"></i>
-                        <span key="t-dashboards">Dashboards</span>
-                    </a>
-                    <ul class="sub-menu mm-collapse" aria-expanded="false">
-                        <li><a href="index.html" key="t-default">Default</a></li>
-                        <li><a href="{% url 'person-table' %}" key="t-default">Person</a></li>
-                        <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li>
-                    </ul>
-                </li>
-
-                <li>
-                   
-<!-- Left Sidebar End -->
-
-
-
-<!-- ============================================================== -->
-<!-- Start right Content here -->
-<!-- ============================================================== -->
-<div class="main-content">
-
-    <div class="page-content">
-        <div class="container-fluid">
-
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Starter Page</h4>
-
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
-                            </ol>
+                                <!--- Sidemenu -->
+                                <div id="sidebar-menu" class="mm-active">
+                                    <!-- Left Menu Start -->
+                                    <ul class="metismenu list-unstyled mm-show" id="side-menu">
+                                        <li>
+                                            <a href="/category/" key="t-vertical" aria-expanded="true">Category</a>
+                                        </li>
+                                        <li><a href="/books/" key="t-default">Books</a></li>
+                                        <li><a href="{% url 'person-table' %}" key="t-default">Students</a></li>
+                                        <li><a href="{% url 'stuff' %}" key="t-default">Staff</a></li>
+                                        <li><a href="/issue-table/" key="t-default">Issue Books</a></li>
+                                        <li><a href="/returnbook-page/" key="t-default">Books Returned</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-            </div>
-            <!-- end page title -->
-            
-        </div> <!-- container-fluid -->
-    </div>
-    <!-- End Page-content -->
 
-    
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script>2024 © Skote.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Design &amp; Develop by Themesbrand
+
+                    <!-- Left Sidebar End -->
+
+
+
+                    <!-- ============================================================== -->
+                    <!-- Start right Content here -->
+                    <!-- ============================================================== -->
+                    <div class="main-content">
+
+                        <div class="page-content">
+                            <div class="container-fluid">
+
+                                <!-- start page title -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div
+                                            class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                            <h4 class="mb-sm-0 font-size-18">Starter Page</h4>
+
+                                            <div class="page-title-right">
+                                                <ol class="breadcrumb m-0">
+                                                    <li class="breadcrumb-item"><a
+                                                            href="javascript: void(0);">Utility</a></li>
+                                                    <li class="breadcrumb-item active">Starter Page</li>
+                                                </ol>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end page title -->
+
+                            </div> <!-- container-fluid -->
+                        </div>
+                        <!-- End Page-content -->
+
+
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <script>document.write(new Date().getFullYear())</script>2024 ©
+                                        Skote.
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="text-sm-end d-none d-sm-block">
+                                            Design &amp; Develop by Themesbrand
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
                     </div>
+                    <!-- end main content-->
+
                 </div>
-            </div>
-        </div>
-    </footer>
-</div>
-<!-- end main content-->
+                <!-- END layout-wrapper -->
 
-</div>
-<!-- END layout-wrapper -->
+                <!-- Right Sidebar -->
+                <div class="right-bar">
+                    <div data-simplebar="init" class="h-100">
+                        <div class="simplebar-wrapper" style="margin: 0px;">
+                            <div class="simplebar-height-auto-observer-wrapper">
+                                <div class="simplebar-height-auto-observer"></div>
+                            </div>
+                            <div class="simplebar-mask">
+                                <div class="simplebar-offset" style="right: -16.8px; bottom: 0px;">
+                                    <div class="simplebar-content-wrapper"
+                                        style="height: 100%; overflow: hidden scroll;">
+                                        <div class="simplebar-content" style="padding: 0px;">
+                                            <div class="rightbar-title d-flex align-items-center px-3 py-4">
 
-<!-- Right Sidebar -->
-<div class="right-bar">
-<div data-simplebar="init" class="h-100"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -16.8px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
-    <div class="rightbar-title d-flex align-items-center px-3 py-4">
+                                                <h5 class="m-0 me-2">Settings</h5>
 
-        <h5 class="m-0 me-2">Settings</h5>
+                                                <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+                                                    <i class="mdi mdi-close noti-icon"></i>
+                                                </a>
+                                            </div>
 
-        <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
-            <i class="mdi mdi-close noti-icon"></i>
-        </a>
-    </div>
+                                            <!-- Settings -->
+                                            <hr class="mt-0">
+                                            <h6 class="text-center mb-0">Choose Layouts</h6>
 
-    <!-- Settings -->
-    <hr class="mt-0">
-    <h6 class="text-center mb-0">Choose Layouts</h6>
+                                            <div class="p-4">
+                                                <div class="mb-2">
+                                                    <img src="{%static 'assets/images/layouts/layout-1.jpg' %}"
+                                                        class="img-thumbnail" alt="layout images">
+                                                </div>
 
-    <div class="p-4">
-        <div class="mb-2">
-            <img src="{%static 'assets/images/layouts/layout-1.jpg' %}" class="img-thumbnail" alt="layout images">
-        </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input theme-choice" type="checkbox"
+                                                        id="light-mode-switch" checked="">
+                                                    <label class="form-check-label" for="light-mode-switch">Light
+                                                        Mode</label>
+                                                </div>
 
-        <div class="form-check form-switch mb-3">
-            <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked="">
-            <label class="form-check-label" for="light-mode-switch">Light Mode</label>
-        </div>
+                                                <div class="mb-2">
+                                                    <img src="{%static 'assets/images/layouts/layout-2.jpg' %}"
+                                                        class="img-thumbnail" alt="layout images">
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input theme-choice" type="checkbox"
+                                                        id="dark-mode-switch">
+                                                    <label class="form-check-label" for="dark-mode-switch">Dark
+                                                        Mode</label>
+                                                </div>
 
-        <div class="mb-2">
-            <img src="{%static 'assets/images/layouts/layout-2.jpg' %}" class="img-thumbnail" alt="layout images">
-        </div>
-        <div class="form-check form-switch mb-3">
-            <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch">
-            <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
-        </div>
+                                                <div class="mb-2">
+                                                    <img src="{%static 'assets/images/layouts/layout-3.jpg' %}"
+                                                        class="img-thumbnail" alt="layout images">
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input theme-choice" type="checkbox"
+                                                        id="rtl-mode-switch">
+                                                    <label class="form-check-label" for="rtl-mode-switch">RTL
+                                                        Mode</label>
+                                                </div>
 
-        <div class="mb-2">
-            <img src="{%static 'assets/images/layouts/layout-3.jpg' %}" class="img-thumbnail" alt="layout images">
-        </div>
-        <div class="form-check form-switch mb-3">
-            <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch">
-            <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
-        </div>
-
-        <div class="mb-2">
-            <img src="{%static 'assets/images/layouts/layout-4.jpg' %}" class="img-thumbnail" alt="layout images">
-        </div>
-        <div class="form-check form-switch mb-5">
-            <input class="form-check-input theme-choice" type="checkbox" id="dark-rtl-mode-switch">
-            <label class="form-check-label" for="dark-rtl-mode-switch">Dark RTL Mode</label>
-        </div>
+                                                <div class="mb-2">
+                                                    <img src="{%static 'assets/images/layouts/layout-4.jpg' %}"
+                                                        class="img-thumbnail" alt="layout images">
+                                                </div>
+                                                <div class="form-check form-switch mb-5">
+                                                    <input class="form-check-input theme-choice" type="checkbox"
+                                                        id="dark-rtl-mode-switch">
+                                                    <label class="form-check-label" for="dark-rtl-mode-switch">Dark
+                                                        RTL Mode</label>
+                                                </div>
 
 
-    </div>
+                                            </div>
 
-</div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1063px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 174px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div> <!-- end slimscroll-menu-->
-</div>
-<!-- /Right-bar -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="simplebar-placeholder" style="width: auto; height: 1063px;"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                            <div class="simplebar-scrollbar"
+                                style="transform: translate3d(0px, 0px, 0px); display: none;"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                            <div class="simplebar-scrollbar"
+                                style="height: 174px; transform: translate3d(0px, 0px, 0px); display: block;">
+                            </div>
+                        </div>
+                    </div> <!-- end slimscroll-menu-->
+                </div>
+                <!-- /Right-bar -->
 
-<!-- Right bar overlay-->
-<div class="rightbar-overlay"></div>
+                <!-- Right bar overlay-->
+                <div class="rightbar-overlay"></div>
 </body>

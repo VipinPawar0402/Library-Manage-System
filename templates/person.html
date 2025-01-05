@@ -123,11 +123,6 @@
     var email = $("#editemail").val();
     var id = $("#userId").val();
 
-    console.log("Name:", name);
-    console.log("Mobile:", mobile);
-    console.log("Email:", email);
-    console.log("ID:", id);
-
     $.ajax({
       method: "POST",
       url: "/update-person/",
@@ -136,7 +131,6 @@
         email: email,
         mobile: mobile,
         id: id,
-        // csrfmiddlewaretoken: "{{ csrf_token }}", // CSRF token
       },
       success: function (response) {
         if (response.message === "success") {

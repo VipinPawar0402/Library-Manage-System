@@ -1,0 +1,106 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block style%}
+{% endblock style%}
+
+{% block content %}
+
+<body>
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0 font-size-18">STAFF</h4>
+
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">
+                    <a href="javascript: void(0);"></a>
+                  </li>
+                  <li class="breadcrumb-item active">Staff</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" value="{{ stuff.name }}" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" value="{{ stuff.email}}" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="mobile" class="form-label">Mobile</label>
+                      <input type="text" class="form-control" id="mobile" name="mobile" value="{{ stuff.mobile}}" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12 text-center">
+                      <button type="submit" class="btn btn-primary" style="margin-top: 22px; margin-bottom: 40px;"
+                        onclick="edit_data()">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var staff_id = "{{ stuff.id }}";
+    function edit_data() {
+        var id = staff_id;
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var mobile = $('#mobile').val();
+
+        $.ajax({
+            url: '/update-stuff/',
+            type: 'POST',
+            data: {
+                'id': id,
+                'name': name,
+                'email': email,
+                'mobile': mobile,
+            },
+            success: function (response) {
+                if (response.message == 'success') {
+                    alert('Data Updated Successfully');
+                    window.location.href = '/stuff/';
+                }
+                else {
+                    alert('Data Not Updated');
+                }
+            },
+            error: function (data) {
+                alert('Data Not Updated');
+            }
+        });
+    }
+  </script>
+</body>
+{% endblock content %}

@@ -1,0 +1,150 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<body>
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0 font-size-18">Students</h4>
+
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">
+                    <a href="javascript: void(0);"></a>
+                  </li>
+                  <li class="breadcrumb-item active">Students</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="mobile" class="form-label">Mobile</label>
+                      <input type="text" class="form-control" id="mobile" name="mobile" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="address" class="form-label">Address</label>
+                      <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="birth_date" class="form-label">Birth Date</label>
+                      <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12 text-center">
+                      <button type="submit" class="btn btn-primary" style="margin-top: 22px; margin-bottom: 40px;"
+                        onclick="add_data()">Submit</button>
+                    </div>
+                  </div>
+
+
+                </div>
+                {% comment %} <ul class="pagination pagination-rounded justify-content-end mb-2">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                      <i class="mdi mdi-chevron-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript: void(0);">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">5</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                      <i class="mdi mdi-chevron-right"></i>
+                    </a>
+                  </li>
+                </ul> {% endcomment %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function add_data() {
+      var name = $('#name').val();
+      var birthdate = $('#birth_date').val();
+      var mobile = $('#mobile').val();
+      var email = $('#email').val();
+      var address = $('#address').val();
+      var password = $('#password').val();
+
+      $.ajax({
+        url: '/send_data/',
+        type: 'POST',
+        data: {
+          name: name,
+          birthdate: birthdate,
+          mobile: mobile,
+          email: email,
+          address: address,
+          password: password
+        },
+        success: function (response) {
+          if (response.message == 'success') {
+            alert('Data added successfully');
+            location.reload();
+          }
+          else {
+            alert(response.details);
+          }
+        },
+        error: function (response) {
+          console.log(response);
+        }
+      });
+    }
+  </script>
+</body>
+{% endblock content %}

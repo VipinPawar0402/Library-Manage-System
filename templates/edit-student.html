@@ -1,0 +1,127 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block style%}
+{% endblock style%}
+
+{% block content %}
+
+<body>
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0 font-size-18">Students</h4>
+
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">
+                    <a href="javascript: void(0);"></a>
+                  </li>
+                  <li class="breadcrumb-item active">Students</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" value="{{ person.name }}" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" value="{{ person.email }}"
+                        required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="mobile" class="form-label">Mobile</label>
+                      <input type="text" class="form-control" id="mobile" name="mobile" value="{{ person.mobile }}"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="address" class="form-label">Address</label>
+                      <textarea class="form-control" id="address" name="address" rows="3"
+                        required>{{ person.address }}</textarea>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="birth_date" class="form-label">Birth Date</label>
+                      <input type="date" class="form-control" id="birth_date" name="birth_date"
+                        value="{{ person.birthdate|date:'Y-m-d' }}" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12 text-end">
+                      <button type="submit" class="btn btn-primary" onclick="edit_data()">Submit</button>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+
+    var person_id = '{{ person.id }}';
+    function edit_data() {
+      var id = person_id;
+      var name = $('#name').val();
+      var birthdate = $('#birth_date').val();
+      var mobile = $('#mobile').val();
+      var email = $('#email').val();
+      var address = $('#address').val();
+
+      $.ajax({
+        url: '/update-person/',
+        type: 'POST',
+        data: {
+          id: id,
+          name: name,
+          birthdate: birthdate,
+          mobile: mobile,
+          email: email,
+          address: address,
+        },
+        success: function (response) {
+          if (response.message == 'success') {
+            alert('Data added successfully');
+            window.location.href = '/person-table/';
+          }
+          else {
+            alert(response.details);
+          }
+        },
+        error: function (response) {
+          console.log(response);
+        }
+      });
+    }
+
+  </script>
+</body>
+{% endblock content %}

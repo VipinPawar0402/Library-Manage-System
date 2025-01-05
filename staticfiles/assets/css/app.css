@@ -519,10 +519,12 @@ body[data-layout=horizontal] .footer {
   bottom: 0;
   margin-top: 0;
   position: fixed;
+  align-items: center;
   top: 70px;
   -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
           box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
 }
+
 
 .main-content {
   margin-right: 250px;

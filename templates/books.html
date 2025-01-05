@@ -1,0 +1,392 @@
+{% extends "layouts/base.html" %} {% load static %}
+{% block content %}
+
+<body>
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0 font-size-18">Books</h4>
+
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">
+                    <a href="javascript: void(0);">{{books.id}}</a>
+                  </li>
+                  <li class="breadcrumb-item active">Students</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <div class="search-box me-2 mb-2 d-inline-block">
+                      <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search..." />
+                        <i class="bx bx-search-alt search-icon"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="text-sm-end">
+                      <button type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"
+                        onclick="addbtn()">
+                        <i class="mdi mdi-plus me-1"></i> Add
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table align-middle table-nowrap table-check">
+                    <thead class="table-light">
+                      <tr>
+                        <th style="width: 20px" class="align-middle">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox" id="checkAll" />
+                            <label class="form-check-label" for="checkAll"></label>
+                          </div>
+                        </th>
+                        <th class="align-middle">No.</th>
+                        <th class="align-middle">Title</th>
+                        <th class="align-middle">Author</th>
+                        <th class="align-middle">Category</th>
+                        <th class="align-middle">Price</th>
+                        <th class="align-middle">Date</th>
+                        <th class="align-middle">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for book in books %}
+                      <tr id="item-{{ books.id }}">
+                        <td>
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox" id="orderidcheck09" />
+                            <label class="form-check-label" for="orderidcheck09"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="javascript: void(0);" class="text-body fw-bold">{{book.id}}</a>
+                        </td>
+                        <td>{{book.title}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.category.subject}}</td>
+                        <td>{{book.price}}</td>
+                        <td>{{book.date_added}}</td>
+
+                        {% comment %} <td>
+                          <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
+                            data-bs-target=".orderdetailsModal">
+                            View details
+                          </button>
+                        </td> {% endcomment %}
+                        <td>
+                          <div class="d-flex gap-3">
+                            <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-pencil font-size-18"
+                                onclick="editbtn('{{book.id}}','{{book.title}}', '{{book.author}}', '{{book.category.id}}', '{{book.price}}', '{{book.date_added}}')"></i></a>
+                            <a href="javascript:void(0);" class="text-danger" onclick="deletebtn('{{book.id}}')"><i
+                                class="mdi mdi-delete font-size-18"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                {% comment %} <ul class="pagination pagination-rounded justify-content-end mb-2">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                      <i class="mdi mdi-chevron-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript: void(0);">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);">5</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                      <i class="mdi mdi-chevron-right"></i>
+                    </a>
+                  </li>
+                </ul> {% endcomment %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Modal -->
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" name="author" required>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+              <option selected>Choose...</option>
+              {% for category in category %}
+              <option id="opt_category" value="{{ category.id }}">{{ category.subject }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" class="form-control" id="price" name="price" required>
+          </div>
+          <div class="mb-3">
+            <label for="date_added" class="form-label">Date Added</label>
+            <input type="date" class="form-control" id="date_added" name="date_added" required>
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="add_data()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <!-- end Modal -->
+
+  <!-- edit modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="edittitle" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="editauthor" name="author" required>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="editcategory" name="category" required>
+              {% for category in category %}
+              <option value="{{ category.id }}">{{ category.subject }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" class="form-control" id="editprice" name="price" required>
+          </div>
+          <div class="mb-3">
+            <label for="date_added" class="form-label">Date Added</label>
+            <input type="date" class="form-control" id="editdate_added" name="date_added" required>
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="edit_data()">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end Modal -->
+  <!-- delete modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Box</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this stuff?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" onclick="delete_data()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <!-- end Modal -->
+
+
+
+
+  <script>
+    var deleteId = null;
+    function deletebtn(id) {
+      deleteId = id;
+      $('#deleteModal').modal('show');
+    }
+
+    function delete_data() {
+      var id = deleteId;
+      $.ajax({
+        url: '/delete-book/',
+        type: 'POST',
+        data: {
+          id: id,
+        },
+        success: function (response) {
+          if (response.message == 'success') {
+            console.log(response);
+            $('#deleteModal').modal('hide');
+            location.reload();
+          }
+          else {
+            console.log(response);
+            alert('Data not deleted');
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      })
+    }
+    var editId = null;
+    function editbtn(id, title, author, category, price, date_added) {
+     
+      $('#exampleModal').modal('show');
+      editId = id;
+      $('#edittitle').val(title);
+      $('#editauthor').val(author);
+      $('#editcategory').val(category).change(); // Replace '2' with an actual value from your options
+      $('#editprice').val(price);
+      $('#editdate_added').val(formatDate(date_added));
+    }
+
+    function formatDate(date) {
+        var d = new Date(date);
+        var month = '' + (d.getMonth() + 1);
+        var day = '' + d.getDate();
+        var year = d.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    function edit_data() {
+      var book_id = editId;
+      var title = $('#edittitle').val();
+      var author = $('#editauthor').val();
+      var category = $('#editcategory').val();
+      var price = $('#editprice').val();
+      var date_added = $('#editdate_added').val();
+
+      if (!category) {
+        alert('Please select a category.');
+        return;
+      }
+
+      $.ajax({
+        url: '/edit-book/',
+        type: 'POST',
+        data: {
+          id: book_id,
+          title: title,
+          author: author,
+          category: category,
+          price: price,
+          date_added: date_added
+        },
+        success: function (response) {
+          if (response.message === 'success') {
+            alert('Data updated successfully');
+            location.reload();
+          } else {
+            console.log(response);
+            alert('Data not updated');
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    function addbtn() {
+      $('#addModal').modal('show');
+    }
+
+    function add_data() {
+      var title = $('#title').val();
+      var author = $('#author').val();
+      var category = $('#category').val();
+      var price = $('#price').val();
+      var date_added = $('#date_added').val();
+      $.ajax({
+        url: '/add-book/',
+        type: 'POST',
+        data: {
+          title: title,
+          author: author,
+          category: category,
+          price: price,
+          date_added: date_added,
+        },
+        success: function (response) {
+          if (response.message == 'success') {
+            console.log(response);
+            $('#addModal').modal('hide');
+            alert('Data added successfully');
+            location.reload();
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+  </script>
+</body>
+{% endblock %}
