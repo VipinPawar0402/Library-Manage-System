@@ -697,6 +697,3 @@ def search_returnbook(request):
         html_content = render_to_string("found-return-status.html", {"get_data": search_results})
         return JsonResponse({'message': 'success', 'html_content': html_content})
     return render(request, "return-status.html", {'search_results': search_results})
-
-
-
