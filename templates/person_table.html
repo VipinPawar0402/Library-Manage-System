@@ -33,7 +33,7 @@
                   <div class="col-sm-4">
                     <div class="search-box me-2 mb-2 d-inline-block">
                       <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." />
+                        <input type="text" class="form-control" placeholder="Search..." / id="searchInput" oninput="searchElement()">
                         <i class="bx bx-search-alt search-icon"></i>
                       </div>
                     </div>
@@ -42,14 +42,15 @@
                     <div class="text-sm-end">
                       <a type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"
                         href='/add-student/'">
-                        <i class="mdi mdi-plus me-1"></i> Add
-                    </a>
+                        <i class=" mdi mdi-plus me-1"></i> Add
+                      </a>
                     </div>
                   </div>
                   <!-- end col-->
                 </div>
 
                 <div class="table-responsive">
+                  <div id="searchResultsContainer">
                   <table class="table align-middle table-nowrap table-check">
                     <thead class="table-light">
                       <tr>
@@ -94,8 +95,7 @@
                         </td> {% endcomment %}
                         <td>
                           <div class="d-flex gap-3">
-                            <a href="javascript:void(0);" class="text-success"
-                              onclick="open_modal('{{person.id}}')"><i
+                            <a href="javascript:void(0);" class="text-success" onclick="open_modal('{{person.id}}')"><i
                                 class="mdi mdi-pencil font-size-18"></i></a>
                             <a href="javascript:void(0);" class="text-danger" onclick="delete_data('{{person.id}}')"><i
                                 class="mdi mdi-delete font-size-18"></i></a>
@@ -105,6 +105,7 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                </div>
                 </div>
                 {% comment %} <ul class="pagination pagination-rounded justify-content-end mb-2">
                   <li class="page-item disabled">
@@ -141,28 +142,48 @@
       </div>
     </div>
   </div>
- 
+
   <!-- delete data button -->
 
   <!-- end delete data button -->
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function searchElement() {
+      var search_element = $("#searchInput").val();
+      $.ajax({
+        type: "POST",
+        url: "/search_box/",
+        data: {
+          search_element:search_element
+        },
+        success: function(response) {
+          if(response.message == 'success'){
+             $('#searchResultsContainer').html("");
+             $('#searchResultsContainer').html(response.html_content);
+             //window.location.href = "/matched_id/";
+          }
+          else{
+            alert("Student not Found");
+          }
+        },
+      });
+    }
+    function open_modal(id) {
+      window.location.href = "/edit-student/" + id + "/";
+    }
 
-          <script>
-            function open_modal(id) {
-              window.location.href = "/edit-student/" + id + "/";
-            }
-
-            function delete_data(id) {
-              console.log(id);
-              $.ajax({
-                url: '/delete/' + id + '/',
-                type: 'GET',
-                success: function (response) {
-                  $('#item-' + id).remove();
-                  $('#deleteModal').modal('hide');
-                }
-              });
-            }
-          </script>
+    function delete_data(id) {
+      console.log(id);
+      $.ajax({
+        url: '/delete/' + id + '/',
+        type: 'GET',
+        success: function (response) {
+          $('#item-' + id).remove();
+          $('#deleteModal').modal('hide');
+        }
+      });
+    }
+  </script>
 </body>
 {% endblock content %} {% block custonJs %}{% endblock custonJs %}

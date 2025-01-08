@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 from django.views.generic import TemplateView
 from django.contrib.auth.hashers import make_password
 from datetime import datetime
+from django.template.loader import render_to_string
 
 def person(request):
     """
@@ -608,6 +609,7 @@ def returnbook_page(request):
     return_book = BookReturned.objects.all()
     return render(request, 'return-status.html', {'return_book':return_book})
 
+@csrf_exempt
 def edit_issuedbook(request,id):
     issue_book = IssueBook.objects.all()
     issue_book = get_object_or_404(IssueBook , id=id)
@@ -616,3 +618,85 @@ def edit_issuedbook(request,id):
     issue_book.issue_time = issue_book.issue_time.strftime('%H:%M')
 
     return render(request, "issue-booktimedit.html", {'issue_book':issue_book, 'persons':Person.objects.all(), 'books': Book.objects.all(), 'stuff': Stuff.objects.all()})
+
+# @csrf_exempt
+# def search_box(request):
+#     if request.method == 'POST':
+#         search_element = request.POST.get("search_element")
+#         print(search_element)
+#         # Search for the element in the Person table
+#         search_results = Person.objects.filter(name__icontains=search_element)
+#         print(search_results)
+#         if search_results.exists():
+#             search_results_list = list(search_results.values('id'))
+#             print(search_results_list)
+#             request.session['search_results'] = search_results_list
+#             print(search_results_list)
+#             return JsonResponse({'message': 'success'})
+#         else:
+#             return JsonResponse({'message': 'error'})
+#     return render(request, "person_table.html", {'search_results': search_results})
+    
+# def matched_id(request):
+#     session_id = request.session.get('search_results')
+#     print(session_id)
+#     if session_id:
+#         # Assuming session_results is a list of dictionaries with 'id' keys
+#         person_ids = [result['id'] for result in session_id]
+#         get_person = Person.objects.filter(id__in=person_ids)
+#         print(person_ids)
+#         #request.session.pop('search_results', None)
+#         return render(request, "element_found.html", {"get_person": get_person})
+#     else:
+#         return JsonResponse({'message': 'No search results found in session'})
+
+
+# def matched_id(request):
+#     return render(request, "element_found.html")
+
+@csrf_exempt
+def search_box(request):
+    if request.method == 'POST':
+        search_element = request.POST.get("search_element")
+        print(search_element)
+        # Search for the element in the Person table
+        search_results = Person.objects.filter(name__icontains=search_element)
+        html_content = render_to_string("element_found.html", {"get_person": search_results})
+        return JsonResponse({'message': 'success', 'html_content': html_content})
+    return render(request, "person_table.html", {'search_results': search_results})
+
+@csrf_exempt
+def search_staff(request):
+    if request.method == 'POST':
+        search_element = request.POST.get("search_element")
+        print(search_element)
+        # Search for the element in the Person table
+        search_results = Stuff.objects.filter(name__icontains=search_element)
+        html_content = render_to_string("found-staff.html", {"get_person": search_results})
+        return JsonResponse({'message': 'success', 'html_content': html_content})
+    return render(request, "stuff.html", {'search_results': search_results})
+
+@csrf_exempt
+def search_books(request):
+    if request.method == 'POST':
+        search_element = request.POST.get("search_element")
+        print(search_element)
+        # Search for the element in the Person table
+        search_results = Book.objects.filter(title__icontains=search_element)
+        html_content = render_to_string("found-books.html", {"get_books": search_results})
+        return JsonResponse({'message': 'success', 'html_content': html_content})
+    return render(request, "books.html", {'search_results': search_results})
+
+@csrf_exempt
+def search_returnbook(request):
+    if request.method == 'POST':
+        search_element = request.POST.get("search_element")
+        print(search_element)
+        # Search for the element in the Person table
+        search_results = BookReturned.objects.filter(student__name__icontains=search_element)
+        html_content = render_to_string("found-return-status.html", {"get_data": search_results})
+        return JsonResponse({'message': 'success', 'html_content': html_content})
+    return render(request, "return-status.html", {'search_results': search_results})
+
+
+

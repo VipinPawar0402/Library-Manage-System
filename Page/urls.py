@@ -48,5 +48,10 @@ urlpatterns = [
     path('returnbook-page/', views.returnbook_page, name = 'returnbook_page'),
     path('edit-issuedbook/<int:id>/', views.edit_issuedbook, name='edit_issuedbook'),
     path('update-issuedbook/', views.update_issuedbook, name='update_issuedbook'),
+    path("search_box/", views.search_box, name="search_box"),
+    # path("matched_id/", views.matched_id, name="matched_id"),
+    path("search_staff/", views.search_staff, name="search_staff"),
+    path("search_books/", views.search_books, name="search_books"),
+    path("search_returnbook/", views.search_returnbook, name="search_returnbook"),
 
 ]

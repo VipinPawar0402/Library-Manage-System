@@ -1,0 +1,48 @@
+<table class="table align-middle table-striped">
+    <thead class="table-light">
+        <tr>
+            <th style="width: 20px" class="align-middle">
+                <div class="form-check font-size-16">
+                    <input class="form-check-input" type="checkbox" id="checkAll" />
+                    <label class="form-check-label" for="checkAll"></label>
+                </div>
+            </th>
+            <th class="align-middle">ID</th>
+            <th class="align-middle">Student</th>
+            <th class="align-middle">Book</th>
+            <th class="align-middle">Issue Date</th>
+            <th class="align-middle">Returned Date</th>
+            <th class="align-middle">Total Charges</th>
+            <th class="align-middle">Status</th>
+            <!-- <th class="align-middle">Action</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for return_book in get_data %}
+        <tr>
+            <td>
+                <div class="form-check font-size-16">
+                    <input class="form-check-input" type="checkbox"
+                        id="orderidcheck09" />
+                    <label class="form-check-label" for="orderidcheck09"></label>
+                </div>
+            </td>
+            <td>
+                <a href="javascript: void(0);"
+                    class="text-body fw-bold">{{return_book.id}}</a>
+            </td>
+            <td>{{return_book.student.name}}</td>
+            <td>{{ return_book.book.title }}</td>
+            <td id="issueDate-{{ return_book.id }}">{{ return_book.issue_date }}</td>
+            <td id="endDate-{{ return_book.id }}">{{ return_book.returned_date }}</td>
+            <td id="total_charges-{{ return_book.total_charges }}">{{ return_book.total_charges }}</td>
+
+            <td>{{return_book.status}}
+            </td>
+            <td>
+              
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

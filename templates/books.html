@@ -32,7 +32,7 @@
                   <div class="col-sm-4">
                     <div class="search-box me-2 mb-2 d-inline-block">
                       <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." />
+                        <input type="text" class="form-control" placeholder="Search..." id="searchInput" oninput="searchElement()">
                         <i class="bx bx-search-alt search-icon"></i>
                       </div>
                     </div>
@@ -49,6 +49,7 @@
                 </div>
 
                 <div class="table-responsive">
+                  <div id="searchResultsContainer">
                   <table class="table align-middle table-nowrap table-check">
                     <thead class="table-light">
                       <tr>
@@ -103,6 +104,7 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                </div>
                 </div>
                 {% comment %} <ul class="pagination pagination-rounded justify-content-end mb-2">
                   <li class="page-item disabled">
@@ -258,6 +260,26 @@
 
 
   <script>
+    function searchElement() {
+      var search_element = $("#searchInput").val();
+      $.ajax({
+        type: "POST",
+        url: "/search_books/",
+        data: {
+          search_element:search_element
+        },
+        success: function(response) {
+          if(response.message == 'success'){
+             $('#searchResultsContainer').html("");
+             $('#searchResultsContainer').html(response.html_content);
+          }
+          else{
+            alert("Student not Found");
+          }
+        },
+      });
+    }
+
     var deleteId = null;
     function deletebtn(id) {
       deleteId = id;

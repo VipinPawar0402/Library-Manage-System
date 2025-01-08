@@ -1,0 +1,45 @@
+<table class="table align-middle table-nowrap table-check">
+    <thead class="table-light">
+      <tr>
+        <th style="width: 20px" class="align-middle">
+          <div class="form-check font-size-16">
+            <input class="form-check-input" type="checkbox" id="checkAll" />
+            <label class="form-check-label" for="checkAll"></label>
+          </div>
+        </th>
+        <th class="align-middle">Stuff ID</th>
+        <th class="align-middle">Name</th>
+        <th class="align-middle">Mobile</th>
+        <th class="align-middle">Email</th>
+        <th class="align-middle">CRN</th>
+        <th class="align-middle">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stuff in get_person %}
+      <tr id="item-{{ stuff.id }}">
+        <td>
+          <div class="form-check font-size-16">
+            <input class="form-check-input" type="checkbox" id="orderidcheck09" />
+            <label class="form-check-label" for="orderidcheck09"></label>
+          </div>
+        </td>
+        <td>
+          <a href="javascript: void(0);" class="text-body fw-bold">{{stuff.id}}</a>
+        </td>
+        <td>{{ stuff.name }}</td>
+        <td>{{ stuff.mobile }}</td>
+        <td>{{ stuff.email }}</td>
+        <td>{{ stuff.id }}</td>
+
+        <td>
+          <div class="d-flex gap-3">
+            <a href="javascript:void(0);" class="text-success"><i
+                class="mdi mdi-pencil font-size-18" onclick="editbtn('{{stuff.id}}')"></i></a>
+            <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-delete font-size-18" onclick="deletebtn('{{ stuff.id }}')"></i></a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>

@@ -1,0 +1,47 @@
+<table class="table align-middle table-nowrap table-check">
+    <thead class="table-light">
+      <tr>
+        <th style="width: 20px" class="align-middle">
+          <div class="form-check font-size-16">
+            <input class="form-check-input" type="checkbox" id="checkAll" />
+            <label class="form-check-label" for="checkAll"></label>
+          </div>
+        </th>
+        <th class="align-middle">No.</th>
+        <th class="align-middle">Title</th>
+        <th class="align-middle">Author</th>
+        <th class="align-middle">Category</th>
+        <th class="align-middle">Price</th>
+        <th class="align-middle">Date</th>
+        <th class="align-middle">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in get_books %}
+      <tr id="item-{{ books.id }}">
+        <td>
+          <div class="form-check font-size-16">
+            <input class="form-check-input" type="checkbox" id="orderidcheck09" />
+            <label class="form-check-label" for="orderidcheck09"></label>
+          </div>
+        </td>
+        <td>
+          <a href="javascript: void(0);" class="text-body fw-bold">{{book.id}}</a>
+        </td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.category.subject}}</td>
+        <td>{{book.price}}</td>
+        <td>{{book.date_added}}</td>
+        <td>
+          <div class="d-flex gap-3">
+            <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-pencil font-size-18"
+                onclick="editbtn('{{book.id}}','{{book.title}}', '{{book.author}}', '{{book.category.id}}', '{{book.price}}', '{{book.date_added}}')"></i></a>
+            <a href="javascript:void(0);" class="text-danger" onclick="deletebtn('{{book.id}}')"><i
+                class="mdi mdi-delete font-size-18"></i></a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>

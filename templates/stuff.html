@@ -31,7 +31,7 @@
                   <div class="col-sm-4">
                     <div class="search-box me-2 mb-2 d-inline-block">
                       <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." />
+                        <input type="text" class="form-control" placeholder="Search..." id="searchInput" oninput="searchElement()">
                         <i class="bx bx-search-alt search-icon"></i>
                       </div>
                     </div>
@@ -47,6 +47,7 @@
                 </div>
 
                 <div class="table-responsive">
+                  <div id="searchResultsContainer">
                   <table class="table align-middle table-nowrap table-check">
                     <thead class="table-light">
                       <tr>
@@ -81,12 +82,6 @@
                         <td>{{ stuff.email }}</td>
                         <td>{{ stuff.id }}</td>
 
-                        {% comment %} <td> 
-                          <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
-                            data-bs-target=".orderdetailsModal">
-                            View Details
-                          </button>
-                        </td> {% endcomment %}
                         <td>
                           <div class="d-flex gap-3">
                             <a href="javascript:void(0);" class="text-success"><i
@@ -99,33 +94,8 @@
                     </tbody>
                   </table>
                 </div>
-                {% comment %} <ul class="pagination pagination-rounded justify-content-end mb-2">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                      <i class="mdi mdi-chevron-left"></i>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="javascript: void(0);">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript: void(0);">2</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript: void(0);">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript: void(0);">4</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript: void(0);">5</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                      <i class="mdi mdi-chevron-right"></i>
-                    </a>
-                  </li>
-                </ul> {% endcomment %}
+                </div>
+             
               </div>
             </div>
           </div>
@@ -135,39 +105,6 @@
     </div>
   </div>
   <!-- end page title -->
-  {% comment %} <div class="modal fade" id="addStuff" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Staff</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Name:</label>
-            <input type="text" class="form-control" id="name" />
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Mobile:</label>
-            <input type="text" class="form-control" id="mobile" />
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" id="email" />
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" onclick="add_Stuff_data()">
-            Add
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> {% endcomment %}
 
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -193,6 +130,27 @@
 
   
   <script>
+    function searchElement() {
+      var search_element = $("#searchInput").val();
+      $.ajax({
+        type: "POST",
+        url: "/search_staff/",
+        data: {
+          search_element:search_element
+        },
+        success: function(response) {
+          if(response.message == 'success'){
+             $('#searchResultsContainer').html("");
+             $('#searchResultsContainer').html(response.html_content);
+             //window.location.href = "/matched_id/";
+          }
+          else{
+            alert("Student not Found");
+          }
+        },
+      });
+    }
+
     function editbtn(id) {
       window.location.href = '/edit-staff/' + id + '/';
     }
