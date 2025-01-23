@@ -91,10 +91,9 @@
                                                     <td>{{ return_book.book.title }}</td>
                                                     <td id="issueDate-{{ return_book.id }}">{{ return_book.issue_date }}
                                                     </td>
-                                                    <td id="endDate-{{ return_book.id }}">{{ return_book.returned_date
-                                                        }}</td>
-                                                    <td id="total_charges-{{ return_book.total_charges }}">{{
-                                                        return_book.total_charges }}</td>
+                                                    <td id="endDate-{{ return_book.id }}">{{ return_book.returned_date}}</td>
+                                                    <td id="total_charges-{{ return_book.total_charges }}">
+                                                        {{return_book.total_charges }}</td>
 
                                                     <td>{{return_book.status}}
                                                     </td>

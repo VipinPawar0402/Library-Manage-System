@@ -11,30 +11,12 @@ from datetime import datetime
 from django.template.loader import render_to_string
 
 def person(request):
-    """
-    Handles the creation of a new person from form input.
-    """
-    # if request.method == "POST":
-    #     name = request.POST.get('name')
-    #     mobile = request.POST.get('mobile')
-    #     email = request.POST.get('email')
-    #     password = request.POST.get('password')
-
-    #     # Save the new person to the database
-    #     person_instance = Person(name=name, mobile=mobile, email=email, password=password)
-    #     person_instance.save()
-
     return render(request, 'signin.html')
-
 
 @csrf_exempt
 def send_data(request):
-    """
-    Handles the creation of a new person using raw POST data.
-    """
     if request.method == "POST":
         data = request.POST.dict()
-        print(data, '..................data')
 
         # Check if the email already exists
         if Person.objects.filter(email=data.get('email')).exists():
@@ -73,20 +55,6 @@ def delete_data(request, person_id):
     person = get_object_or_404(Person, id=person_id)
     person.delete()
     return JsonResponse({'message': 'Item deleted'})
-
-
-# def edit_data(request, person_id):
-#     """
-#     Fetches a person's data by ID and returns it as JSON.
-#     """
-#     person = get_object_or_404(Person, id=person_id)
-#     data = {
-#         "id": person.id,
-#         "name": person.name,
-#         "mobile": person.mobile,
-#         "email": person.email,
-#     }
-#     return JsonResponse(data)
 
 
 @csrf_exempt
@@ -185,7 +153,6 @@ def login_page(request):
                 request.session['user_id'] = person.id ### session {}, sesstion['name'] = 'kunal',  del request.session['user_id']
                 return JsonResponse({'status': 1, 'userId':person.id})
             else:
-                print('mmmmmmmmmmmmmmmmmmm')
                 return JsonResponse({'status': 0, 'message': 'Invalid credentials'})
         except Person.DoesNotExist:
             return JsonResponse({'status': 0, 'message': 'User not found'})
@@ -350,7 +317,6 @@ def delete_stuff(request):
 def add_stuff(request):
     if request.method == 'POST':
         data = request.POST.dict()
-        print(data, '..................data')
 
         # Create a new person record from POST data
         Stuff.objects.create(**data)
@@ -571,7 +537,6 @@ def delete_issuedbook(request, id):
         issue_book = get_object_or_404(IssueBook, id=id)
         issue_book.delete()
         return JsonResponse({'message': 'success'})
-
     return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 @csrf_exempt
@@ -587,8 +552,7 @@ def return_status(request):
         issue_book = get_object_or_404(IssueBook, id=issue_book_id)
         student = get_object_or_404(Person, id=student_id)
         book = get_object_or_404(Book, id=book_id)
-        staff = get_object_or_404(Stuff, id=staff_id)
-        
+        staff = get_object_or_404(Stuff, id=staff_id)       
         return_book = BookReturned(
             student=student,
             book=book,
@@ -600,14 +564,14 @@ def return_status(request):
         )
         return_book.save()
         issue_book.delete()
-
         return JsonResponse({'message': 'success'})
-
     return JsonResponse({'message': 'Invalid request method'}, status=405)
+
 
 def returnbook_page(request):
     return_book = BookReturned.objects.all()
     return render(request, 'return-status.html', {'return_book':return_book})
+
 
 @csrf_exempt
 def edit_issuedbook(request,id):
